@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "origins.allowed",
+      "type": "java.lang.String",
+      "description": "Description for origins.allowed."
+    },
+    {
+      "name": "jwt.secretText",
+      "type": "java.lang.String",
+      "description": "Description for jwt.secretText."
+    },
+    {
+      "name": "jwt.duration",
+      "type": "java.lang.String",
+      "description": "Description for jwt.duration."
+    }
+  ]
+}
