@@ -32,7 +32,7 @@ dependencies {
 }
 
 bootRun {
-	args = ["--spring.profiles.active=${project.properties['profile'] ?: 'local'}"]
+	args = ["--spring.profiles.active=${System.getenv('SPRING_PROFILES_ACTIVE') ?: 'local'}"]
 }
 
 test {
