@@ -31,6 +31,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
+bootRun {
+	args = ["--spring.profiles.active=${project.properties['profile'] ?: 'local'}"]
+}
+
 test {
 	useJUnitPlatform()
 }
