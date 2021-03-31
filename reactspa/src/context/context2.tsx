@@ -1,14 +1,14 @@
 import { createContext, FunctionComponent, useState } from "react";
 
-interface IContext1 {
+interface IContext2 {
   value: string;
   setValue: (value: string) => void;
 }
 
-const Context1 = createContext<IContext1 | null>(null);
+const Context2 = createContext<IContext2 | null>(null);
 
-const Context1Provider: FunctionComponent = (props) => {
-  const [state, setState] = useState<IContext1>({
+const Context2Provider: FunctionComponent = (props) => {
+  const [state, setState] = useState<IContext2>({
     value: "",
     setValue: (value) =>
       setState({
@@ -17,7 +17,7 @@ const Context1Provider: FunctionComponent = (props) => {
       }),
   });
 
-  return <Context1.Provider value={state}>{props.children}</Context1.Provider>;
+  return <Context2.Provider value={state}>{props.children}</Context2.Provider>;
 };
 
-export { Context1, Context1Provider };
+export { Context2, Context2Provider };
