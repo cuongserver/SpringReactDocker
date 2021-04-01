@@ -1,4 +1,4 @@
-import { createContext, FunctionComponent, useState } from "react";
+import { createContext, FC, useState } from "react";
 
 interface IContext1 {
   value: string;
@@ -7,7 +7,7 @@ interface IContext1 {
 
 const Context1 = createContext<IContext1 | null>(null);
 
-const Context1Provider: FunctionComponent = (props) => {
+const Context1Provider: FC = (props) => {
   const [state, setState] = useState<IContext1>({
     value: "",
     setValue: (value) =>

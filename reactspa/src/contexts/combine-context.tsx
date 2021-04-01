@@ -1,6 +1,6 @@
 import React, { ComponentProps, FC } from "react";
-import { Context1Provider } from "context/context1";
-import { Context2Provider } from "context/context2";
+import { Context1Provider } from "contexts/context1";
+import { Context2Provider } from "contexts/context2";
 
 const combineComponents = (...components: FC[]): FC => {
   return components.reduce(
