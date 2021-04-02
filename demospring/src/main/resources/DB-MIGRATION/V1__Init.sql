@@ -10,7 +10,7 @@ CREATE TABLE users (
     created_by uuid NOT NULL,
     created_at timestamp NOT NULL,
     last_update_by uuid NOT NULL,
-    last_update_at timestamp NOT NULL,
+    last_updated_at timestamp NOT NULL,
     is_deleted boolean NOT NULL,
     version INT NOT NULL
 );

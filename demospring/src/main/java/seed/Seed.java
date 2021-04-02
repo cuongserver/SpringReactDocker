@@ -58,6 +58,7 @@ public class Seed {
         properties.put("hibernate.connection.password", "demo");
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.naming-strategy", "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
         return properties;
     }
 

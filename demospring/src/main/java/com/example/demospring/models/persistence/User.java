@@ -2,6 +2,7 @@ package com.example.demospring.models.persistence;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,13 +13,12 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name="users")
+@Table(name = "users")
 public class User extends ForAuditPurpose {
     @Id
-    @Column(name="id")
+    @Type(type = "pg-uuid")
     private UUID id;
 
-    @Column(name="email")
     private String email;
 
     @Column(name="login_name")
@@ -36,7 +36,6 @@ public class User extends ForAuditPurpose {
     @Column(name="mfa_key")
     private String mfaKey;
 
-    @Column(name="salt")
     private String salt;
 }
 
