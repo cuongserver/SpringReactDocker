@@ -1,15 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import Application from "application";
 import reportWebVitals from "./reportWebVitals";
 import { AppContext } from "contexts/combine-context";
+import { BrowserRouter } from "react-router-dom";
+import "styles/common.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppContext>
-      <App />
-    </AppContext>
+    <BrowserRouter>
+      <AppContext>
+        <Application />
+      </AppContext>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
