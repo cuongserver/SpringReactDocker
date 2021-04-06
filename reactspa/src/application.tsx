@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { Switch } from "react-router";
+import { EnhancedRoute } from "components/shared/auth-route";
 
 const LayoutEntry = React.lazy(() => import("layouts/layout-entry"));
 
@@ -8,10 +9,12 @@ const Application: React.FC = React.memo(() => {
     <React.Fragment>
       <React.Suspense fallback={"loading"}>
         <Switch>
-          <Route
+          <EnhancedRoute
+            isLayoutRoute={true}
             path={["/login", "/signup", "/forgot-password"]}
             render={() => <LayoutEntry />}
           />
+          <EnhancedRoute path="/" render={() => <div />} />
         </Switch>
       </React.Suspense>
     </React.Fragment>

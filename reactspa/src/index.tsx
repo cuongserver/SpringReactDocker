@@ -5,6 +5,7 @@ import Application from "application";
 import reportWebVitals from "./reportWebVitals";
 import { AppContext } from "contexts/combine-context";
 import { BrowserRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/common.css";
 
 ReactDOM.render(
