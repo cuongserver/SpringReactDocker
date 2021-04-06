@@ -17,7 +17,7 @@ const ViewLogin: React.FC = () => {
   const cardStyle: React.CSSProperties = {
     height: 400,
     width: 300,
-    backgroundColor: "rgba(255,255,255,0.8)",
+    backgroundColor: "rgba(0,0,0,0.8)",
   };
 
   const formData: FormData = {
@@ -75,6 +75,7 @@ const ViewLogin: React.FC = () => {
                       value={values.loginName}
                       onChange={formHandleChange}
                       name="loginName"
+                      className="border"
                     />
                     <Form.Text className="text-danger">
                       {errors.loginName !== undefined
@@ -93,6 +94,7 @@ const ViewLogin: React.FC = () => {
                       value={values.password}
                       onChange={formHandleChange}
                       name="password"
+                      className="border"
                     />
                     <Form.Text className="text-danger">
                       {errors.password !== undefined ? errors.password : "\xa0"}
