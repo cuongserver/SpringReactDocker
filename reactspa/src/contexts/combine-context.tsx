@@ -1,6 +1,7 @@
 import React, { ComponentProps, FC } from "react";
 import { Context1Provider } from "contexts/context1";
 import { Context2Provider } from "contexts/context2";
+import { IdentityContextProvider } from "./identity-context";
 
 const combineComponents = (...components: FC[]): FC => {
   return components.reduce(
@@ -17,6 +18,6 @@ const combineComponents = (...components: FC[]): FC => {
   );
 };
 
-const providers = [Context1Provider, Context2Provider];
+const providers = [Context1Provider, Context2Provider, IdentityContextProvider];
 
 export const AppContext = combineComponents(...providers);

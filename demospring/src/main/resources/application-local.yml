@@ -25,7 +25,7 @@ spring:
   flyway:
     enabled: false
 origins:
-  allowed: http://localhost:3030, http://localhost:3031
+  allowed: http://localhost:3030, http://localhost:3031, http://localhost:3000
 jwt:
   secretText: A super super secret key
   duration: 10000

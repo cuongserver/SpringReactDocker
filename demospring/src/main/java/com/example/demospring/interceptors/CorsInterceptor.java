@@ -34,6 +34,7 @@ public class CorsInterceptor implements HandlerInterceptor {
                         "COPY, DELETE, GET, HEAD, LOCK, MKCALENDAR, " +
                         "MKCOL, MOVE, OPTIONS, POST, PROPFIND, PROPPATCH, " +
                         "PUT, REPORT, SEARCH, UNCHECKOUT, UNLOCK, UPDATE, VERSION-CONTROL");
+        response.setHeader("Access-Control-Allow-Headers", "*");
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
         }

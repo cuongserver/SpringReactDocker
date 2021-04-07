@@ -3,9 +3,23 @@ import { Container, InputGroup, Form, Card, Button } from "react-bootstrap";
 import * as yup from "yup";
 import _ from "lodash";
 import { Formik, FormikProps, yupToFormErrors } from "formik";
+import { userApiHandlers } from "http/config/api.user";
+import { IdentityContext } from "../contexts/identity-context";
+import { UserLoginResponse } from "../http/models/user-login";
+import { useHistory } from "react-router-dom";
 
 const schema = yup.object().shape({
   loginName: yup.string().required("required"),
+  //validate using ref
+  // password: yup.string().when("loginName", {
+  //   is: (loginName: string) => loginName.length > 0,
+  //   then: yup.string().oneOf([yup.ref("loginName")], "zzzzz"),
+  // }),
+  //validate using context
+  // password: yup.string().test("confirm", "zzzz", (value, context) => {
+  //   if (_.isEmpty(value)) return true;
+  //   return value === (context.options.context as FormData).loginName;
+  // }),
 });
 
 interface FormData {
@@ -14,10 +28,12 @@ interface FormData {
 }
 
 const ViewLogin: React.FC = () => {
+  const ctx = React.useContext(IdentityContext)!;
+  const history = useHistory();
   const cardStyle: React.CSSProperties = {
-    height: 400,
+    height: "auto",
     width: 300,
-    backgroundColor: "rgba(0,0,0,0.8)",
+    backgroundColor: "rgb(255,255,255,0.8)",
   };
 
   const formData: FormData = {
@@ -25,16 +41,37 @@ const ViewLogin: React.FC = () => {
     password: "",
   };
 
-  const handleSubmit = async () => {
+  const validateForm = async () => {
     const form = validator.current!;
     try {
       await schema.validate(form.values, {
         abortEarly: false,
+        context: form.values,
       });
       return true;
     } catch (errors) {
       form.setErrors(yupToFormErrors(errors));
       return false;
+    }
+  };
+
+  const handleSubmit = async () => {
+    const isValid = await validateForm();
+    const form = validator.current!;
+    if (!isValid) return;
+    const res = await userApiHandlers.doLogin({
+      ...form.values,
+    });
+    if (
+      (res! as any).hasError === undefined &&
+      (res as UserLoginResponse).result !== null
+    ) {
+      ctx.setValue({
+        jwt: (res as UserLoginResponse).result!.jwt,
+        displayName: (res as UserLoginResponse).result!.displayName,
+        isLoggedIn: true,
+      });
+      history.push("/");
     }
   };
 
@@ -75,7 +112,6 @@ const ViewLogin: React.FC = () => {
                       value={values.loginName}
                       onChange={formHandleChange}
                       name="loginName"
-                      className="border"
                     />
                     <Form.Text className="text-danger">
                       {errors.loginName !== undefined
@@ -94,7 +130,6 @@ const ViewLogin: React.FC = () => {
                       value={values.password}
                       onChange={formHandleChange}
                       name="password"
-                      className="border"
                     />
                     <Form.Text className="text-danger">
                       {errors.password !== undefined ? errors.password : "\xa0"}
@@ -102,8 +137,8 @@ const ViewLogin: React.FC = () => {
                   </Form.Group>
                 </InputGroup>
                 <Button
-                  variant="outline-success"
-                  className="m-t-10"
+                  variant="success"
+                  className="m-t-10 m-b-40"
                   onClick={handleSubmit}
                 >
                   Submit
@@ -116,4 +151,4 @@ const ViewLogin: React.FC = () => {
     </React.Fragment>
   );
 };
-export default ViewLogin;
+export default React.memo(ViewLogin);

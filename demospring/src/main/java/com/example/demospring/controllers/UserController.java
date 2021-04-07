@@ -1,7 +1,6 @@
 package com.example.demospring.controllers;
 
 import com.example.demospring.models.persistence.User;
-import com.example.demospring.models.query.UserLoginQuery;
 import com.example.demospring.models.request.UserLoginRequest;
 import com.example.demospring.models.response.UserLoginResponse;
 import com.example.demospring.repositories.UserRepository;
@@ -11,14 +10,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(value = "hello-world", produces = MediaType.APPLICATION_JSON_VALUE)
-public class HelloWorldController {
+@RequestMapping(value = "user", produces = MediaType.APPLICATION_JSON_VALUE)
+public class UserController {
     private final UserRepository userRepo;
     private final UserService userService;
-    public HelloWorldController(UserRepository userRepo, UserService userService) {
+    public UserController(UserRepository userRepo, UserService userService) {
         this.userRepo = userRepo;
         this.userService = userService;
     }
