@@ -20,7 +20,7 @@ public class CorsInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,HttpServletResponse response, Object handler) throws Exception {
 
         if (handler instanceof ResourceHttpRequestHandler) {
-            System.out.println("ResourceHttpRequestHandler");
+            return true;
         }
         String origin = request.getHeader("origin");
         if (!Arrays.asList(whitelistOrigins).contains(origin)) {
@@ -37,6 +37,7 @@ public class CorsInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Headers", "*");
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
+            return false;
         }
         return true;
     }

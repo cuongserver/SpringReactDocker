@@ -5,4 +5,8 @@ export const userEndpoints = {
     method: "POST" as Method,
     url: "user/authenticate",
   },
+  getTOTPSetupInfo: {
+    method: "GET" as Method,
+    url: "user/otp-setup",
+  },
 };

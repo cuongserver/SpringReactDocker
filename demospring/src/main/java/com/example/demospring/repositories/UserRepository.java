@@ -25,4 +25,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
                 password_hash as passwordHash from users where login_name = :loginName
             """, nativeQuery = true)
     List<UserLoginQuery> getUsersByLoginName(String loginName);
+    User getUserById(UUID id);
 }

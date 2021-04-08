@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtHelper {
@@ -17,12 +18,22 @@ public class JwtHelper {
     @Value("${jwt.duration}")
     private long duration;
     private final String USER_ID_CLAIM = "uid";
+
     public String generateJwt(User user) {
         var claims = Jwts.claims();
         claims.put(USER_ID_CLAIM, user.getId());
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(getExpirationTime())
+                .signWith(SignatureAlgorithm.HS256, secretText)
+                .compact();
+    }
+
+    public String generateJwt(Map<String, String> info) {
+        var claims = Jwts.claims();
+        claims.putAll(info);
+        return Jwts.builder()
+                .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, secretText)
                 .compact();
     }
@@ -37,9 +48,9 @@ public class JwtHelper {
         try {
             var claims = getClaimsFromToken(token);
             var expire = claims.getBody().getExpiration();
-            if(expire == null) return false;
+            if (expire == null) return false;
             var now = new Date();
-            if(now.after(expire)) return false;
+            if (now.after(expire)) return false;
             return true;
         } catch (Exception e) {
             return false;

@@ -1,12 +1,14 @@
 package com.example.demospring.helpers;
 
 import org.apache.commons.codec.binary.Base32;
+import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Component
 public class OtpHelperImpl implements OtpHelper {
     @Override
     public String generateOtpUrl(String key, String username, String issuer) {
@@ -14,6 +16,11 @@ public class OtpHelperImpl implements OtpHelper {
         String otpAuthUrl = String.format("otpauth://totp/%s:%s?secret=%s&issuer=%s",
                 issuer, username, base32key, issuer);
         return otpAuthUrl;
+    }
+
+    @Override
+    public String generateBase32EncodingKey(String key) {
+        return generateBase32Encoding(key);
     }
 
     @Override
