@@ -8,7 +8,7 @@ const ViewForgotPassword = React.lazy(
   () => import("views/view-forgotpassword")
 );
 
-const LayoutEntry: React.FC = React.memo(() => {
+const LayoutEntry: React.FC = () => {
   const style: React.CSSProperties = {
     backgroundImage: `url(${background})`,
     backgroundPosition: "center",
@@ -30,6 +30,5 @@ const LayoutEntry: React.FC = React.memo(() => {
       </div>
     </React.Fragment>
   );
-});
-
+};
 export default LayoutEntry;

@@ -1,7 +1,8 @@
 import { BaseApiHandler } from "http/base-api-handler";
 import { UserLoginRequest, UserLoginResponse } from "http/models/user-login";
 import { userEndpoints } from "http/config/endpoints";
-import { TOTPSetupInfo } from "../models/TOTPSetupInfo";
+import { TOTPSetupInfo } from "http/models/TOTPSetupInfo";
+import { store } from "store";
 
 export const userApiHandlers = {
   async doLogin(request: UserLoginRequest) {
@@ -12,8 +13,10 @@ export const userApiHandlers = {
       data: request,
     });
   },
-  async getTOTPSetupInfo(headers: { [key: string]: string }) {
-    const handler = new BaseApiHandler().setRetry(3).setHeaders(headers);
+  async getTOTPSetupInfo() {
+    const handler = new BaseApiHandler()
+      .setRetry(3)
+      .appendHeader("Authorization", store.getState().identity.jwt);
     return await handler.send<TOTPSetupInfo>({
       url: userEndpoints.getTOTPSetupInfo.url,
       method: userEndpoints.getTOTPSetupInfo.method,

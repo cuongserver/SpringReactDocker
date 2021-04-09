@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 @RestController
@@ -20,6 +20,7 @@ import java.util.UUID;
 public class UserController {
     private final UserRepository userRepo;
     private final UserService userService;
+
     public UserController(UserRepository userRepo, UserService userService) {
         this.userRepo = userRepo;
         this.userService = userService;
@@ -34,25 +35,23 @@ public class UserController {
         message.message = "hello-world";
         return mapper.writeValueAsString(message);
     }
+
     @GetMapping("/get-user")
-    public User GetUser(@RequestParam String loginName)
-    {
+    public User GetUser(@RequestParam String loginName) {
         return userRepo.getUserByLoginName(loginName);
     }
 
     @AllowAnonymous
     @PostMapping("/authenticate")
-    public UserLoginResponse GetUsers(@RequestBody UserLoginRequest request)
-    {
+    public UserLoginResponse GetUsers(@RequestBody UserLoginRequest request) {
         var res = new UserLoginResponse();
         res.result = userService.authenticate(request.loginName, request.password);
         return res;
     }
 
     @GetMapping("/otp-setup")
-    public UserOtpSetupResponse SetupOtp(HttpSession session)
-    {
-        var id = UUID.fromString((String)session.getAttribute("uid"));
+    public UserOtpSetupResponse SetupOtp(HttpServletRequest request) {
+        var id = UUID.fromString((String) request.getAttribute("uid"));
         var info = userService.initTOTP(id);
         var res = new UserOtpSetupResponse();
         res.info = info;

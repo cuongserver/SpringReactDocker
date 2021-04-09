@@ -4,7 +4,7 @@ export class BaseApiHandler {
   headers: { [key: string]: string } = {};
   retryIfFailed = 0;
   appendHeader(key: string, value: string) {
-    this.headers.key = value;
+    this.headers[key] = value;
     return this;
   }
   setHeaders(headers: { [key: string]: string }) {

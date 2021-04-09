@@ -7,14 +7,18 @@ import { AppContext } from "contexts/combine-context";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/common.css";
+import { Provider } from "react-redux";
+import { store } from "store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AppContext>
-        <Application />
-      </AppContext>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContext>
+          <Application />
+        </AppContext>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

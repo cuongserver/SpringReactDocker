@@ -4,9 +4,10 @@ import * as yup from "yup";
 import _ from "lodash";
 import { Formik, FormikProps, yupToFormErrors } from "formik";
 import { userApiHandlers } from "http/config/api.user";
-import { IdentityContext } from "../contexts/identity-context";
-import { UserLoginResponse } from "../http/models/user-login";
+import { UserLoginResponse } from "http/models/user-login";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { IdentityMutation } from "store/models/identity";
 
 const schema = yup.object().shape({
   loginName: yup.string().required("required"),
@@ -28,8 +29,8 @@ interface FormData {
 }
 
 const ViewLogin: React.FC = () => {
-  const ctx = React.useContext(IdentityContext)!;
   const history = useHistory();
+  const dispatch = useDispatch();
   const cardStyle: React.CSSProperties = {
     height: "auto",
     width: 300,
@@ -58,6 +59,7 @@ const ViewLogin: React.FC = () => {
   const handleSubmit = async () => {
     const isValid = await validateForm();
     const form = validator.current!;
+
     if (!isValid) return;
     const res = await userApiHandlers.doLogin({
       ...form.values,
@@ -66,11 +68,16 @@ const ViewLogin: React.FC = () => {
       (res! as any).hasError === undefined &&
       (res as UserLoginResponse).result !== null
     ) {
-      ctx.setValue({
-        jwt: (res as UserLoginResponse).result!.jwt,
-        displayName: (res as UserLoginResponse).result!.displayName,
-        isLoggedIn: true,
-      });
+      const response = (res as UserLoginResponse).result!;
+      const action: IdentityMutation = {
+        type: "IDENTITY_SET_STATE",
+        payload: {
+          jwt: response.jwt,
+          displayName: response.displayName,
+          isLoggedIn: true,
+        },
+      };
+      dispatch(action);
       history.push("/");
     }
   };

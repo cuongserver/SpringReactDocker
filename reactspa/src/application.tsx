@@ -1,24 +1,26 @@
 import React from "react";
 import { Switch } from "react-router";
 import { EnhancedRoute } from "components/shared/auth-route";
-import { IdentityContext } from "./contexts/identity-context";
+import { AppState } from "store/models";
+import { useSelector } from "react-redux";
 
 const LayoutEntry = React.lazy(() => import("layouts/layout-entry"));
 const Home = React.lazy(() => import("views/view-home"));
-const Application: React.FC = React.memo(() => {
-  const ctx = React.useContext(IdentityContext)!;
+
+const Application: React.FC = () => {
+  const appState = useSelector<AppState, AppState>((state) => state);
   return (
     <React.Fragment>
       <React.Suspense fallback={"loading"}>
         <Switch>
           <EnhancedRoute
-            isAuth={ctx.isLoggedIn}
+            isAuth={appState.identity.isLoggedIn}
             isLayoutRoute={true}
             path={["/login", "/signup", "/forgot-password"]}
             render={() => <LayoutEntry />}
           />
           <EnhancedRoute
-            isAuth={ctx.isLoggedIn}
+            isAuth={appState.identity.isLoggedIn}
             path="/"
             render={() => <Home />}
           />
@@ -26,6 +28,6 @@ const Application: React.FC = React.memo(() => {
       </React.Suspense>
     </React.Fragment>
   );
-});
+};
 
 export default Application;
