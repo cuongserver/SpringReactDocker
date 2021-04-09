@@ -1,7 +1,7 @@
 package seed;
 
-import com.example.demospring.helpers.CryptoHelper;
-import com.example.demospring.models.persistence.User;
+import com.ndc.demospring.helpers.CryptoHelper;
+import com.ndc.demospring.models.persistence.User;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
