@@ -47,9 +47,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             return false;
         }
         var claims = jwtHelper.getClaimsFromToken(token);
-        claims.getBody().forEach((k,v) -> {
-            request.setAttribute(k, v);
-        });
+        claims.getBody().forEach(request::setAttribute); //(k,v) -> { request.setAttribute(k, v); }
 
         return true;
     }
