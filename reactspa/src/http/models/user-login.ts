@@ -12,3 +12,18 @@ export interface UserLoginDto {
 export interface UserLoginResponse {
   result: UserLoginDto | null;
 }
+
+export interface UserLoginRequestWithOtp {
+  loginName: string;
+  password: string;
+  otp: string;
+}
+
+export interface UserLoginWithOtpDto {
+  displayName: string;
+  jwt: string;
+}
+
+export interface UserLoginWithOtpResponse {
+  result: UserLoginWithOtpDto | null;
+}

@@ -7,5 +7,6 @@ public interface UserLoginQuery {
     String getDisplayName();
     String getSalt();
     String getPasswordHash();
+    String getMfaKey();
     boolean getMfaEnabled();
 }
