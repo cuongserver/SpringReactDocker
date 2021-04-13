@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.ndc'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '14'
 
 configurations {
 	compileOnly {
@@ -33,4 +33,18 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs += "--enable-preview"
+}
+tasks.withType(Test) {
+	jvmArgs += "--enable-preview"
+}
+tasks.withType(JavaExec) {
+	jvmArgs += "--enable-preview"
+}
+
+bootRun {
+	args = ["--spring.profiles.active=${System.getenv('SPRING_PROFILES_ACTIVE') ?: 'local'}"]
 }

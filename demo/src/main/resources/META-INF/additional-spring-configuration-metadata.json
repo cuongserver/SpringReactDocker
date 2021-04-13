@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "jwt.signingKey",
+      "type": "java.lang.String",
+      "description": "Description for jwt.signingKey."
+    },
+    {
+      "name": "jwt.duration",
+      "type": "java.lang.String",
+      "description": "Description for jwt.duration."
+    },
+    {
+      "name": "origins.allowed",
+      "type": "java.lang.String",
+      "description": "Description for origins.allowed."
+    }
+  ]
+}
