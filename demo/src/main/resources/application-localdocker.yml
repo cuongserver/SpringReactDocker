@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://host.docker.internal:6002/demo?currentSchema=public
+    username: demo
+    password: demo
+    hikari:
+      autoCommit: false
+      connectionTimeout: 30000
+      idleTimeout: 30000
+      maxLifetime: 1800000
+      minimumIdle: 10
+      maximumPoolSize: 40
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: false
+origins:
+  allowed: http://localhost:3030, http://localhost:3031, http://localhost:3000
+jwt:
+  signingKey: A super super secret key
+  duration: 3600000
