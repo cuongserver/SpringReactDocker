@@ -1,6 +1,6 @@
 package com.ndc.demo.domains.user;
 
-import com.ndc.demo.common.testNamedDI.TestService;
+import com.ndc.demo.common.test_named_di.TestService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

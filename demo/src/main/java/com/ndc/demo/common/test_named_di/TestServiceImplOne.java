@@ -1,4 +1,4 @@
-package com.ndc.demo.common.testNamedDI;
+package com.ndc.demo.common.test_named_di;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
